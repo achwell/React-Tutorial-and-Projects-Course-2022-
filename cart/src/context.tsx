@@ -7,7 +7,7 @@ import {
   useEffect,
 } from "react";
 import cartItems from "./data";
-import reducer, { ActionKind, State } from "./reducer";
+import reducer, { ActionKind } from "./reducer";
 import Item from "./Item";
 
 const url = "https://course-api.com/react-useReducer-cart-project";

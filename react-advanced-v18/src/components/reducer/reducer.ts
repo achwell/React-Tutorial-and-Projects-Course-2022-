@@ -1,10 +1,11 @@
 import { Action, ActionKind, State } from "./index";
 
 export const reducer = (state: State, action: Action) => {
+  let newPeople;
   switch (action.type) {
     case ActionKind.ADD_ITEM:
       // @ts-ignore
-      let newPeople = [...state.people, action.payload];
+      newPeople = [...state.people, action.payload];
       return {
         ...state,
         people: newPeople,
