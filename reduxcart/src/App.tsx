@@ -15,7 +15,9 @@ function App() {
   }, [cartItems]);
 
   useEffect(() => {
-    dispatch(getCartItems("random"));
+    dispatch(
+      getCartItems("https://course-api.com/react-useReducer-cart-project")
+    );
   }, []);
 
   if (isLoading) {

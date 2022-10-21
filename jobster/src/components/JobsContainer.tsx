@@ -1,0 +1,51 @@
+import { useEffect } from "react";
+import Wrapper from "../assets/wrappers/JobsContainer";
+import { getAllJobs } from "../features/allJobs/allJobsSlice";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import IJob from "../types/IJob";
+import { Job, Loading, PageBtnContainer } from "./index";
+const JobsContainer = () => {
+  const {
+    jobs,
+    isLoading,
+    page,
+    totalJobs,
+    numOfPages,
+    search,
+    searchStatus,
+    searchType,
+    sort,
+  } = useAppSelector((store) => store.allJobs);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getAllJobs({}));
+  }, [page, search, searchStatus, searchType, sort]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (jobs.length === 0) {
+    return (
+      <Wrapper>
+        <h2>No jobs to display...</h2>
+      </Wrapper>
+    );
+  }
+
+  return (
+    <Wrapper>
+      <h5>
+        {totalJobs} job{jobs.length > 1 && "s"} found
+      </h5>
+      <div className="jobs">
+        {(jobs as IJob[]).map((job) => {
+          return <Job key={job._id} {...job} />;
+        })}
+      </div>
+      {numOfPages > 1 && <PageBtnContainer />}
+    </Wrapper>
+  );
+};
+export default JobsContainer;
